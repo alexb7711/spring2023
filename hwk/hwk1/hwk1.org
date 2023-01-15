@@ -1,0 +1,189 @@
+#+TITLE: Homework 1
+#+AUTHOR: Alexander Brown
+#+DATE: \today
+
+#+OPTIONS: toc:nil
+#+BIND: org-export-latex-title-command ""
+#+LATEX: \setcounter{secnumdepth}{-1}
+
+# =========================================================================================================================
+# Babel properties
+
+#+PROPERTY: header-args:octave :session *octave* :results output :exports both
+
+# =========================================================================================================================
+# Org LaTeX options
+
+#+OPTIONS: tex:t
+#+LATEX_CLASS: article
+
+#+latex_header: \pagestyle{fancy}
+#+latex_header: \fancyhead{}
+#+latex_header: \rhead{\textit{Alexander Brown}}
+#+latex_header: \lhead{\textit{ECE 6030}}
+#+latex_header: \small
+#+latex_header: \usepackage{amsfonts}                       % Cool math fonts
+#+latex_header: \usepackage{amsmath}                        % Maths
+#+latex_header: \setlength\parindent{0pt}                   % No indent for paragraphs
+
+#+latex_header: \newcommand{\shall}{\textbf{shall }}
+
+# =========================================================================================================================
+# More document configuration
+
+#+begin_export latex
+\parskip 3mm                                % Set the vetical space between paragraphs
+\let\ref\autoref                            % Redifine `\ref` as `\autoref` because lazy
+#+end_export
+
+* 3
+** Problem Statement
+Show that the following are convex:
+
+1. The set of $n \times n$ Toeplitz matrices
+2. The set of monic polynomials of the same degree
+3. The set of symmetric matrices
+
+** Solution
+Begin by defining what a complex set is:
+
+#+begin_quote
+A set $S$ is convex if for any two points $p,q \in S$, then all points of the form
+
+$$
+\lambda p + (1 - \lambda)q
+$$
+
+for $0 \le \lambda \le 1$, are also in $S$.
+#+end_quote
+
+*** 3.1: Toeplitz
+:PROPERTIES:
+:CUSTOM_ID: sec:3.1
+:END:
+
+Begin by defining what a Toeplitz matrix is
+
+#+begin_quote
+A Toeplitz matrix is a diagonal-constant matrix, which means all elements along a diagonal have the same value. For a
+Toeplitz matrix $A$ we have $A_{ij} = a_{i-j}$ which results in the form
+
+\begin{equation*}
+\begin{bmatrix}
+a & b & c & \cdots \\
+e & a & b & \cdots \\
+f & e & a & \cdots \\
+\vdots & \vdots & \vdots & \ddots
+\end{bmatrix}
+\end{equation*}
+#+end_quote
+
+Consider Toeplitz matrices $P$ and $Q$ of dimension $n \times n$ as let $S$ be the set of $n\times n$ Toeplitz matrices. Lets now apply the definition of the convex set:
+
+$$
+\lambda P + (1 - \lambda)Q
+$$
+
+There are two operations being applied to the matrices: addition
+
+#+begin_quote
+If $A = [a_{ij}]$ and $B = [b_{ij}]$ are matrices of the same size, then their sum $A+B$ is the matrix obtained by
+adding the corresponding elements of the matrix $A$ and $B$.
+#+end_quote
+
+and multiplication of a matrix by a number
+
+#+begin_quote
+If $A = [a_ij]$ is a matrix and $c$ is a number, then $cA$ is the matrix obtained by multiplying each element of $A$ by
+$c$.
+#+end_quote
+
+Therefore, we can make the statements
+
+- Any Toeplitz matrix multiplied by a scalar is also Toeplitz
+- Any two $n \times n$ Toeplitz matrices being added together is also Toeplitz
+
+The following statement can then be made: The set of $n \times n$ Toeplitz matrices is convex.
+
+$$
+\lambda P + (1 - \lambda)Q \in S
+$$
+
+*** 3.2: Monic Polynomials of Degree $n$
+Begin by defining what a monic polynomial is
+
+#+begin_quote
+A polynomial is monic if the coefficient of the highest order term is 1.
+#+end_quote
+
+Suppose $p$ and $q$ are monic polynomials of degree $n$ and $S$ is the set of all monic polynomials of degree $n$. It
+can be written
+
+$$
+\lambda p(x) + (1 - \lambda)q(x) \in S
+$$
+
+Expanding the above gives
+
+\begin{equation*}
+\begin{array}{l}
+\lambda (x^n - ax^{n-1} + \cdots + bx + c) + (1- \lambda)(x^n + dx^{n-1} + \cdots + ex + f) \\
+= 2 \lambda x^n + (a+d x^{n-1}) + \cdots \\
+\end{array}
+\end{equation*}
+
+Dividing by $2\lambda$ produces another monic polynomial of degree $n$. Therefore, the set is convex, i.e $\lambda p(x) + (1 - \lambda)q(x) \in S$.
+
+*** 3.3: Symmetric Matrices
+Define what a symmetric matrix is
+
+#+begin_quote
+A matrix $A$ is symmetric $\iff A = A^T$.
+#+end_quote
+
+Similarly to [[#sec:3.1][3.1]],
+
+- Let $P$ and $Q$ are $n \times n$ symmetric matrices
+- $S$ is the set of $n \times n$ symmetric matrices
+- Any symmetric matrix multiplied by a scalar is also symmetric
+- Any two $n \times n$ symmetric matrices being added together is also symmetric
+
+Therefore, $S$ is convex because $\lambda P + (1 - \lambda)Q \in S$.
+
+* 4
+** Problem Statement
+The set of even integers can be represented as $2\mathbb{Z}$. Show that $|2\mathbb{Z}| = |\mathbb{Z}|$. Similarly show that there are as many odd
+integers as there are integers.
+
+** Solution
+Let $S$ and $T$ be two different sets. $T$ and $S$ have the same cardinality if there is a bijection $f$ from $S$ to
+$T$. Therefore, we need to show $f : \mathbb{Z} \rightarrow 2\mathbb{Z}$. Let the mapping $f(n)$ be defined as
+
+\begin{equation*}
+f(n) = 2n
+\end{equation*}
+
+It now needs to be shown that $f(n)$ is both one-to-one and onto. To show that $f(n)$ is one-to-one begin by defining
+how to show a mapping is one-to-one
+
+#+begin_quote
+A function $f$ from $A$ onto $B$ is one-to-one if each element of $B$ has at most one element of $A$ mapped into it.
+That is, $f(x) = f(y)$, then $x = y$.
+#+end_quote
+
+From this if we suppose $f(a) = f(b)$, then $2a = 2b$ so $a=b$. Thus, $f$ is one-to-one. Now we need to show $f$ is
+onto. Begin by defining onto
+
+#+begin_quote
+A function is onto if each element of $B$ has at least one element of $A$ that is mapped into it. That is, $\forall b
+\in B$ there is an $a \in A$ such that $f(a) = b$.
+#+end_quote
+
+Take $b = 2n$ for some $a$, then $f(n) = 2n = b$ which shows that $f$ is onto. Therefore, $f(n)$ is a bijection and
+$|\mathbb{Z}| = |2\mathbb{Z}|$.
+
+Similarly, for the odd we need to show $f : \mathbb{Z} \rightarrow 2\mathbb{Z}+1$ is a bijection. To show $f(n)$ is one-to-one let $f(a) = f(b)$,
+then $2a + 1 = 2b + 1$, so $a=b$. To show $f$ is onto let $b = 2n+1$, then $f(n) = 2n + 1 = b$. Therefore, $f(n)$ is a
+bijection and $|\mathbb{Z}| = |2\mathbb{Z}+1|$.
+
+* 5
