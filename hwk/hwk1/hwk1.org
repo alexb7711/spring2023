@@ -298,7 +298,7 @@ $$
 Which must be convex because it is a single point. Now let $n=3$
 
 \begin{equation*}
-\begin{array}{l}
+\begin{array}{c}
 \lambda p + (1 - \lambda)q \\
 \lambda (x_1, x_2, x_3) + (1 - \lambda)(y_1, y_2, y_2) = (z_1, z_2, z_3)\\
 \end{array}
@@ -316,3 +316,217 @@ $$
 
 ** Solution
 Begin with the base case, $n=1$.
+
+\begin{equation*}
+\begin{array}{c}
+1^2 \le \sum_{i=1}^1 \frac{1}{1} \\
+1 \le 1
+\end{array}
+\end{equation*}
+
+which is true. Now let
+
+$$
+n^2 \le \sum_{i=1}^n \frac{1}{a_i}
+$$
+
+be true. We now need to show that the following is true
+
+$$
+(n+1)^2 \le \sum_{i=1}^{n+1} \frac{1}{a_i}
+$$
+
+Begin by defining an element from $P_N$: $p = (a_1, a_2, \cdots, a_n)$. To make $p$ an element in the $P_{n+1}$ space let $p
+= (a_1, a_2, \cdots, a_n, 0)$. Let's define another point $q = (0, 0, \cdots, 0, 1)$. Now let's define the line between the points
+$p$ and $q$
+
+\begin{equation*}
+\begin{array}{c}
+\lambda p + (1 - \lambda)q \\
+\lambda (a_1, a_2, \cdots, a_n, 0) + (1 - \lambda)(0, 0, \cdots, 0, 1) = (b_1, b_2, \cdots, b_{n+1}) \\
+\end{array}
+\end{equation*}
+
+Going back to the $(n+1)^2 \le \sum_{i=1}^{n+1} \frac{1}{a_i}$, let's plug this in for $b$ for $a$: $(n+1)^2 = \sum_{i=1}^{n+1}
+\frac{1}{b_i}$. Note that the $(1-\lambda)$ is non-zero at $n+1$, so we can rewrite this as $(n+1)^2 = \frac{1}{1-\lambda} + \sum_{i=1}^{n+1}
+\frac{1}{\lambda a_i}$. Now to remove the $\lambda$:
+
+\begin{equation*}
+\frac{1}{1-\lambda} + \sum_{i=1}^{n+1} \frac{1}{\lambda a_i} \le \sum_{i=1}^{n+1} \frac{1}{a_i} \\
+\end{equation*}
+
+Therefore, $(n+1)^2 \le \sum_{i=1}^{n+1} \frac{1}{a_i}$.
+
+* 10
+** Problem Statement
+Show that $(AB)^T = B^T A^T$ is true.
+
+** Solution
+Let $A$ be a $m \times n$ matrix and $B$ be a $n \times p$ matrix. And let $A = (a_{ij})$ and $A^T = (a_{ji})$, the same can be
+said for $B$. If we look at the multiplication of $(AB)^T$
+
+$$
+(AB)^T = \sum_{k=1}^n (a_{ik} b_{ki})^T
+$$
+
+Which denotes the row/column multiplication/addition of matrix multiplication for transposed matrices. Now if we
+transpose the summed values
+
+$$
+(AB)^T = \sum_{k=1}^n (a_{ik} b_{ki})^T = \sum_{k=1}^n (a_{kj} b_{ki})
+$$
+
+Reversing the multiplication order we get
+
+$$
+(AB)^T = \sum_{k=1}^n (b_{ki} a_{kj})^T = B^T A^T
+$$
+
+* 11
+** Problem Statement
+Show that the following are true
+
+** Solution
+
+*** $A_{i:} = \sum_j a_{ij}e_{j}$
+Begin with definition of unit vectors
+
+\begin{equation*}
+\begin{array}{ccc}
+e_1 =
+\begin{bmatrix}
+1 \\ 0 \\ 0 \\ \vdots \\ 0
+\end{bmatrix}
+e_2 =
+\begin{bmatrix}
+0 \\ 1 \\ 0 \\ \vdots \\ 0
+\end{bmatrix}
+e_n =
+\begin{bmatrix}
+0 \\ 0 \\ 0 \\ \vdots \\ n
+\end{bmatrix}
+\end{array}
+\end{equation*}
+
+Now outline the form of $A_{i:} = [a_{i1},a_{i2},a_{i3},\cdots,a_{in}]$ which denotes the all the elements of row $i$. To
+show that is equivalent to the sum, begin by expanding the sum. Let $k$ be the column of interest.
+
+\begin{equation*}
+\sum_j a_{ij}e_j = a_{i1}e_1 + a_{i2}e_2 + \cdots + a_{ik}e_{k} + a_{in}e_n
+\end{equation*}
+
+Referring back to the definition of $e$, we see that only $e_k$ is nonzero therefore the only value returned is
+$a_{ik}$. Extrapolating this for all columns $n$ in the matrix we get the vector $[a_{i1},a_{i2},a_{i3},\cdots,a_{in}]$.
+
+*** $A_{:j} = \sum_i a_{ij}e_{i}$
+This is very similarly to the previous problem; however, now we are summing over the columns. $A_{:j} = [a_{1j},a_{2j}
+\cdots,a_{mj}]^T$. Now taking the sum version, we find
+
+\begin{equation*}
+\sum_i a_{ij}e_i = a_{1j}e_1 + a_{2j}e_2 + \cdots + a_{kj}e_{k} + a_{nj}e_m
+\end{equation*}
+
+Where the only nonzero value in $e$ is $e_k$, therefore we are returned $a{kj}$ when $i=k$. Doing this for all $m$
+elements returns the vector $[a_{1j},a_{2j},\cdots,a_{mj}]^T$
+
+*** $A_{i:}^T = \sum_j a_{ij}e_{j}^T$
+This is nearly the same as $A_{i:} = \sum_j a_{ij}e_{j}$, but now because $A$ is transposed, the unit vectors must also be
+transposed to keep the dimensions connect (column vector to row). Therefore, in a similar vein we can state $(A_{i:}^T)
+= (a_{:i}) = [a_{1i},a_{2i},\cdots,a_{ni}]^T$. Taking the summed version we find
+
+\begin{equation*}
+\sum_j a_{ij}e_j^T = a_{1i}e_1 + a_{2i}e_2 + \cdots + a_{ki}e_{k} + a_{ni}e_n
+\end{equation*}
+
+Again, because $k$ is the index of interest the only value that is returned is $a_{ki}$. Extrapolating out, as we have
+done before, we find that the vector that is returned is the column vector of $[a_{1i},a_{2i},\cdots,a_{ni}]^T$.
+
+* 12
+** Problem Statement
+Show that $(A^{-1})^T = (A^T)^{-1}$.
+
+** Solution
+Let $A^{-1} = B$. Then we can write
+
+$$
+B^T = (A^T)^{-1}
+$$
+
+Inverting both sides and stating the fact that $(A^{-1})^{-1} = A$ we get
+
+$$
+A^T = (B^T)^{-1}
+$$
+
+Substituting the result from above back into the original equation we get
+
+$$
+((B^T)^{-1})^{-1} = B^T
+$$
+
+Using the definition that the inverse of an inverse is the original matrix for an inverterable matrix we get
+
+$$
+B^T = B^T
+$$
+
+Therefore, $(A^{-1})^T = (A^T)^{-1}$.
+
+* 13
+** Problem Statement
+Show that $\text{tr}(AB) = \text{tr}(BA)$
+
+** Solution
+Define what the trace of a matrix is
+
+#+begin_quote
+The trace of a matrix $\text{tr}(A) = \sum_{i=1}^{n} a_{ii}$. In other words, the trace is the sum of the elements along
+the main of the diagonal
+#+end_quote
+
+The trace can be written as
+
+$$
+\text{tr}(AB) = (AB)_{ii} = \sum_{k=1}^m (AB)_{ii} = \sum_{i=1}^m \sum_{k=1}^n A_{ik} B_{ki}
+$$
+
+Reversing the summations we get
+
+$$
+\sum_{k=1}^n \sum_{i=1}^m B_{ki} A_{ik} = \sum_{k=1}^n (BA)_{kk} = \text{tr}(BA)
+$$
+
+* 14
+** Problem Statement
+Define the offset trace as a generalization of the usual trace
+
+$$
+\text{tr}(C,l) = \sum_{i} C_{i,i+l}
+$$
+
+where the usual trace is obtained when $l = 0$, and for $l > 0$, the sum is taken on the $l\text{th}$ superdiagonal. Show that
+for $l \ne 0$
+
+$$
+\text{tr}(AB, l) = \text{tr}(B^T A^T, l)
+$$
+
+** Solution
+To begin we state the fact that was proven before.
+
+$$
+(AB)^T = B^T A^T
+$$
+
+Now we need to show that $(A)_{i,i+1} = ((A)_{i+1, i})^T$. The obvious case is when $j=0$, when $l>0$. Let $j = i+l$, we
+know that
+
+$$
+(a_{i,j}) = (a_{j,i})^T
+$$
+
+substituting $j=i+1$ is then obvious. Putting these facts together, let $C=AB$
+
+$$
+\text{tr}(C,l) = \sum_{i} C^T_{i+l,i} = \sum_{i} (B^T A^T)_{i+l,i}
+$$
