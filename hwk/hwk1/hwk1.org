@@ -187,3 +187,132 @@ then $2a + 1 = 2b + 1$, so $a=b$. To show $f$ is onto let $b = 2n+1$, then $f(n)
 bijection and $|\mathbb{Z}| = |2\mathbb{Z}+1|$.
 
 * 5
+
+** Problem Statement
+Show that $|(0,1]| = |\mathbb{R}|$.
+
+** Solution
+A simple way to go about this is to first show that $\big|[0,1)\big| = \big|[-\pi/2, \pi/2)\big|$. Suppose $f(x) = \pi x - \pi/2$. To show that
+$f(x)$ is one-to-one
+
+\begin{equation*}
+\begin{array}{l}
+f(x) = f(y) \\
+\pi x - \pi/2 = \pi y - \pi/2 \\
+\pi x = \pi y \\
+x = y
+\end{array}
+\end{equation*}
+
+Therefore, $f(x)$ is one-to-one. Now to show that $f(x)$ is also onto.
+
+\begin{equation*}
+\begin{array}{l}
+f(x) = y \\
+\pi x - \pi / 2 = y \\
+x = y/\pi + 1/2
+\end{array}
+\end{equation*}
+
+And because we know that $0 < x \le 1$ we can show that $x$ written above is in that range by saying
+
+\begin{equation*}
+\begin{array}{l}
+- \pi/2 < y \le \pi/2 \\
+- 1/2 < y/\pi \le 1/2 \\
+0 < y/\pi + 1/2 \le 1\\
+\end{array}
+\end{equation*}
+
+Therefore, the function is also onto. Now to show that $\big|[-\pi/2, \pi/2)\big| = \big| \mathbb{R} \big|$. Let $g(x) = tan(x)$ it
+can be shown that $tan(x)$ is always increasing.
+
+#+begin_quote
+*Fact*: If $g(x)$ is always increasing, then $g(x)$ is one-to-one.
+#+end_quote
+
+By taking the derivative of $g'(x) = sec^2(x) > 0$, therefore $g(x)$ is one-to-one. To show that $g(x)$ is onto, we will
+use the intermediate value theorem
+
+#+begin_quote
+If $g(x)$ is continuous on an interval $[a,b]$, then $g(x)$ contains all the values between $g(a)$ and $g(b)$.
+#+end_quote
+
+Let the range of interest be $[-\pi/2 + \epsilon, \pi/2 - \epsilon]$. $g(x)$ is continuous within the range, therefore it obtains all
+values $g(-\pi/2 + \epsilon)$ to $g(\pi/2 - \epsilon)$. If we let $\epsilon \rightarrow 0$ then $g(x) \rightarrow \mathbb{R}$. Therefore, $\big|(0,1]\big| = \big| \mathbb{R} \big|$.
+
+* 6
+** Problem Statement
+Show that the intersection of a convex set is convex.
+
+** Solution
+Let $A$ and $B$ be two convex sets, and let $C = A \cup B$. Now let $p,q \in C$.
+
+- If $p,q \in C$ then $p,q \in A$ and $A$ is convex
+- If $p,q \in C$ then $p,q \in B$ and $B$ is convex
+- Therefore $C$ must be complex
+
+* 7
+** Problem Statement
+If $S$ and $T$ are convex sets both in $\mathbb{R}^n$, show that the set sum is convex.
+
+#+attr_latex: :width 0.45\textwidth
+[[./img/set-sum.png]]
+
+** Solution
+The set sum is defined as
+
+$$
+S+T = \{x: x = s + t, s\in S, t \in T\}
+$$
+
+Let $S$ and $T$ be convex sets and $S+T \in C$, let $s_1, s_2 \in S$ and $t_1, t_2 \in T$, and let $s = s_1 + t_1$ and $t = s_2 + t_2$, then
+
+\begin{equation*}
+\lambda s + (1 - \lambda)t \\
+\lambda s_1 + \lambda t_1 + s_2(1-\lambda) + t_2(1-\lambda) \\
+\lambda s_1 + (1-\lambda)t_1 + \lambda s_2 + (1-\lambda) t_2 \in C \\
+\end{equation*}
+
+Therefore, the set sum is convex.
+
+* 8
+:PROPERTIES:
+:CUSTOM_ID: sec:1.8
+:END:
+** Problem Statement
+Show that the polytope in $n$ dimensions is defined by
+
+\begin{equation*}
+P_n = \{ x \in \mathbb{R}^n : x_i \ge 0, \sum_{i=1}^n x_i = 1 \}
+\end{equation*}
+
+** Solution
+Let is take the case of $n=1$ to start. Let $p = x1$ and $q = y_1$ then
+using the definition used before we get
+
+$$
+\lambda p + (1 - \lambda)q
+$$
+
+Which must be convex because it is a single point. Now let $n=3$
+
+\begin{equation*}
+\begin{array}{l}
+\lambda p + (1 - \lambda)q \\
+\lambda (x_1, x_2, x_3) + (1 - \lambda)(y_1, y_2, y_2) = (z_1, z_2, z_3)\\
+\end{array}
+\end{equation*}
+
+Because $z$ must add up to 1, the set must be convex.
+
+* 9
+** Problem Statement
+For the polytope $P_n$ of the previous problem, let $(a_1, a_2, \cdots, a_n) \in P_n$. Show by induction that
+
+$$
+n^2 \le \sum_{i=1}^n \frac{1}{a_i}
+$$
+
+** Solution
+Begin with the base case, $n=1$.
