@@ -530,3 +530,153 @@ substituting $j=i+1$ is then obvious. Putting these facts together, let $C=AB$
 $$
 \text{tr}(C,l) = \sum_{i} C^T_{i+l,i} = \sum_{i} (B^T A^T)_{i+l,i}
 $$
+
+* 15
+
+** Problem Statement
+Let two complex numbers be defined as $z_1 = a + jb$ and $z_2 = c + jd$. Let $z_3 = z_1 z_2 = e + jf$. Show
+
+1. The product can be written as
+
+\begin{equation*}
+\begin{bmatrix} e \\ f \end{bmatrix} =
+\begin{bmatrix} c & -d \\ d & c \end{bmatrix}
+\begin{bmatrix} a \\ b \end{bmatrix}
+\end{equation*}
+
+2. The complex product can also be written as
+
+\begin{equation*}
+\begin{array}{cc}
+e = (a-b)d + a(c-d) & f = (a-b)d + b(c+d)
+\end{array}
+\end{equation*}
+
+3. Show that this modified scheme can be expressed in matrix notation as
+
+\begin{equation*}
+\begin{bmatrix} e \\ f \end{bmatrix} =
+\begin{bmatrix} 1 & 0 & 1 \\ 0 & 1 & 1 \end{bmatrix}
+\begin{bmatrix}
+(c-d) & 0 & 0 \\
+0 & (c+d) & 0 \\
+0 & 0 & d
+\end{bmatrix}
+\begin{bmatrix}
+1 & 0 \\
+0 & 1 \\
+1 & -1
+\end{bmatrix}
+\begin{bmatrix} a \\ b \end{bmatrix}
+\end{equation*}
+
+** Solution
+
+*** 1.4-1.1
+Complex matrix multiplication can be written as
+
+$$
+z_1 z_2 = (a+jb)(c+jd)
+$$
+
+Expanding and combining real and imaginary terms
+
+\begin{equation*}
+\begin{array}{c}
+z_1 z_2 = ac + ajd + cjb + bdj^2 \\
+(ac - bd) + (ajd + cjb)
+\end{array}
+\end{equation*}
+
+Now lets expand the matrix form shown in the problem statement
+
+\begin{equation*}
+\begin{bmatrix} e \\ f \end{bmatrix} =
+\begin{bmatrix} c & -d \\ d & c \end{bmatrix}
+\begin{bmatrix} a \\ b \end{bmatrix} =
+\begin{bmatrix}
+ca - bd \\ da + cb
+\end{bmatrix}
+\end{equation*}
+
+Note that the grouped pairs match for real and imaginary parts.
+
+*** 1.4-1.2
+This can be found by simply expanding and simplifying. Lets begin with $e$
+
+\begin{equation*}
+\begin{array}{l}
+e = (a-b)d + a(c-d) \\
+e = ad - bd + ac - ad \\
+e = ac - bd
+\end{array}
+\end{equation*}
+
+Which matches the two solutions found before. Similarly for $f$
+
+\begin{equation*}
+\begin{array}{l}
+f = (a-b)d + b(c+d) \\
+f = ad - bd + bc + bd \\
+f = ad + bc
+\end{array}
+\end{equation*}
+
+Which, again, matches what was found before.
+
+*** 1.4-1.3
+Once again, we can show that they are equivalent by expansion and simplification. We will work from left to right
+performing matrix multiplication
+
+\begin{equation*}
+\begin{array}{c}
+\begin{bmatrix} e \\ f \end{bmatrix} =
+\begin{bmatrix} 1 & 0 & 1 \\ 0 & 1 & 1 \end{bmatrix}
+\begin{bmatrix}
+(c-d) & 0 & 0 \\
+0 & (c+d) & 0 \\
+0 & 0 & d
+\end{bmatrix}
+\begin{bmatrix}
+1 & 0 \\
+0 & 1 \\
+1 & -1
+\end{bmatrix}
+\begin{bmatrix} a \\ b \end{bmatrix} \\
+\begin{bmatrix} e \\ f \end{bmatrix} =
+\begin{bmatrix}
+(c-d) & 0 & d \\
+0 & (c+d) & d \\
+\end{bmatrix}
+\begin{bmatrix}
+1 & 0 \\
+0 & 1 \\
+1 & -1
+\end{bmatrix}
+\begin{bmatrix} a \\ b \end{bmatrix} \\
+\begin{bmatrix} e \\ f \end{bmatrix} =
+\begin{bmatrix}
+(c-d) & -d \\
+d & c \\
+\end{bmatrix}
+\begin{bmatrix} a \\ b \end{bmatrix} =
+\begin{bmatrix}
+ca - bd \\ da + cb
+\end{bmatrix}
+\end{array}
+\end{equation*}
+
+Which is equivalent to what was found in the previous problems.
+
+* 16
+
+** Problems Statement
+Show that
+
+$$
+k_j = \frac{1}{p^j j!}(-1)^j \frac{d^j}{d(z^{-1})^j} (1-pz^-1)^r H(z) \Big|_{z=p}
+$$
+
+for the partial fraction expansion of a Z-transform with repeated roots is correct.
+
+** Solution
