@@ -24,7 +24,7 @@ E = sum(e);                                                                     
 display(sprintf("The measure of error is %f", E));
 
 %% Plot data
-plot(x,y,'b*');
+plot(x,y,'r*');
 hold on;
 
 %% Plot fitted curve
