@@ -23,12 +23,11 @@ f(:,1) = 1;
 f(:,2) = a(1)*f(:,1);
 f(:,3) = a(1)*f(:,2) + a(2)*f(:,1);
 f(:,4) = a(1)*f(:,3) + a(2)*f(:,2) + a(3)*f(:,1);
-x(:,1:4) = f(:,1:4);
-
+x(:,1:4) = f(:,1:4) + random("normal", 0, ov, [N,4]);                           # Apply noise
 
 for i = 5:N
   f(:,i) = a(1)*x(:,i-1) + a(2)*x(:,i-2) + a(3)*x(:,i-3) + a(4)*x(:,i-4);
-  x(:,i) = f(:,i); + random("normal", 0, ov, [N,1]);
+  x(:,i) = f(:,i); + random("normal", 0, ov, [N,1]);                            # Apply noise
 end
 
 ## Plot realizations
@@ -43,6 +42,9 @@ hold off;
 
 ##==============================================================================
 ## (b)
+
+##------------------------------------------------------------------------------
+## Covariance method
 
 ## Calculate desired values
 d = zeros(1,N-m+1);
@@ -59,6 +61,31 @@ for i=m:N
 end
 
 ## Determine coefficients
+h = pinv(A)*d'
+
+##------------------------------------------------------------------------------
+## Forward/Backward method
+x = x';
+
+## Calculate desired values
+d = [];
+
+d = [f(m+1:N)];
+d = [d, conj(f(1:N-m))];
+
+## Create Toeplitz matrix
+A = [];
+
+for i = 1:N-m
+  A = [A;x(m+i-1:-1:i).'];
+end
+for i = 1:N-m
+  A = [A;x(i+1:m+i)'];
+end
+
+## Determine coefficients
+size(pinv(A))
+size(d)
 h = pinv(A)*d'
 
 ##==============================================================================
@@ -83,8 +110,7 @@ hold on;
 ste = @(w) norm(ov/(1+h(1)*exp(1j*w) + h(2)*exp(-2j*w) + h(3)*exp(-3j*w) + h(4)*exp(-4j*w)))^2;
 
 for i = 1:0.1:10
-plot(i, ste(i));
+  plot(i, ste(i));
 end
 
 hold off;
-close all;

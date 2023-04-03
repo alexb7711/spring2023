@@ -5,7 +5,7 @@ syms t c;
 ip = @(x,y) vpa(int(x*y,t,[0,3]));
 
 %% Impulse response function
-h = @(x) (exp(-4*x) + exp(-3*x))*heaviside(x);
+h = @(x) (exp(-4*x) + exp(-3*x));
 
 %% y1
 y1 = h(3-t)
@@ -13,12 +13,45 @@ y1 = h(3-t)
 %% y2
 y2 = int(h(t),t);
 C  = solve(subs(y2,t,0) + c == 0);
-y2 = y2 + C
+y2 = subs(y2 + C,t,3-t)
 
 %% Grammian
-R = [ip(y1,y1), ip(y1,y2);
-     ip(y1,y2), ip(y2,y2)]
+R = double([ip(y1,y1), ip(y1,y2);
+            ip(y1,y2), ip(y2,y2)])
 p = [2;4];
 
 %% Solve
-c = R\p
+c = double(R\p)
+
+%% Create function
+x = @(x) c(1)*(exp(-4*(3-x)) + exp(-3*(3-x))) + ...
+         c(2)*(7/12 - 1/4*exp(-4*(3-x)) - 1/3*exp(-3*(3-x)));
+
+%% Plot parameters
+N = 1000;
+t = linspace(0,4);
+xd = x(t);
+hd = h(t);
+
+%% Plot input signal
+subplot(3,1,1);
+plot(xd, "LineWidth", 2);
+xlabel('t');
+ylabel('x(t)');
+
+%% Plot impulse response
+subplot(3,1,2);
+plot(hd, "LineWidth", 2);
+xlabel('t');
+ylabel('h(t)');
+
+%% Calculate output signal
+y = conv(xd,hd,'same');
+
+%% Plot output signal
+subplot(3,1,3);
+plot(y,"r-",'LineWidth',2)
+xlabel('t');
+ylabel('y(t)');
+
+grid on;
