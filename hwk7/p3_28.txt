@@ -1,0 +1,13 @@
+syms t;
+y1 = 3*exp(-2*(2-t)) + 4*exp(-5*(2-t));
+y2 = -3/2*exp(-2*(2-t))-4/5*exp(-5*(2-t)) + 23/10;
+inner = @(x,y) vpa(int(x*y,t,[0,2]));
+
+a = inner(y1,y1);
+b = inner(y1,y2);
+c = inner(y2,y2);
+
+A = [a b; b c]
+d = [2;3];
+
+A\d

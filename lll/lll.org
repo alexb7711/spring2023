@@ -1,0 +1,196 @@
+#+TITLE: LLL
+#+AUTHOR: Alexander Brown
+#+DATE: \today
+
+#+OPTIONS: toc:nil
+
+# =========================================================================================================================
+# Babel properties
+
+#+PROPERTY: header-args:octave :session *octave* :results both :exports both
+
+# =========================================================================================================================
+# Org LaTeX options
+
+#+OPTIONS: tex:t
+
+#+latex_header: \usepackage{amsfonts}                       % Cool math fonts
+#+latex_header: \usepackage{amsmath}                        % Maths
+#+latex_header: \setlength\parindent{0pt}                   % No indent for paragraphs
+
+# =========================================================================================================================
+# More document configuration
+
+#+begin_export latex
+\parskip 3mm                                % Set the vetical space between paragraphs
+\let\ref\autoref                            % Redifine `\ref` as `\autoref` because lazy
+#+end_export
+
+* 1
+** Question
+Write a MATLAB program that will plot a lattice in the interval [0,40] on the $x$ axis and [0,20] on the $y$ axis.a
+
+** Solution
+#+begin_src octave :session *octave* :results none
+  b1 = [10;2];
+  b2 = [12;5];
+  b  = [b1 b2];
+  plattice(b, "one")
+#+end_src
+
+#+RESULTS:
+
+Output is shown in [[fig:lattice]].
+
+#+name: fig:lattice
+#+caption: Plot of lattice
+[[./one.png]]
+
+\pagebreak
+* 11
+** Question
+For the basis vectors
+
+\begin{equation}
+\begin{array}{cc}
+b1 =
+\begin{bmatrix}
+12 \\ 2
+\end{bmatrix}
+b2 =
+\begin{bmatrix}
+13 \\ 4
+\end{bmatrix} \\
+\end{array}
+\end{equation}
+
+verify that the reduced basis vectors are
+
+\begin{equation}
+\begin{array}{cc}
+b1 =
+\begin{bmatrix}
+1 \\ 2
+\end{bmatrix}
+b2 =
+\begin{bmatrix}
+9 \\ -4
+\end{bmatrix} \\
+\end{array}
+\end{equation}
+
+** Solution
+
+#+begin_src octave
+  b1 = [12;2];
+  b2 = [13;4];
+  b  = [b1 b2];
+  LLL(b,true);
+#+end_src
+
+#+RESULTS:
+| 1 |  9 |
+| 2 | -4 |
+
+#+name: fig:reduced
+#+caption: Plot of reduced lattice
+[[./lattice.png]]
+
+Output is shown in [[fig:reduced]]
+
+\pagebreak
+* 12
+** Question
+\begin{equation}
+B =
+\begin{bmatrix}
+1 & -1 & 2 \\
+1 & 0 & 5 \\
+1 & 2 & 6
+\end{bmatrix}
+\end{equation}
+
+verify that the reduced basis vectors are
+
+\begin{equation}
+B =
+\begin{bmatrix}
+0 & 1 & -2 \\
+1 & 0 & 0 \\
+0 & 1 & 1
+\end{bmatrix}
+\end{equation}
+
+** Solution
+#+begin_src octave
+  B  = [1, -1, 3;
+        1, 0,  5;
+        1, 2,  6];
+
+  LLL(B,false);
+#+end_src
+
+#+RESULTS:
+| 0 | 1 | -2 |
+| 1 | 0 |  0 |
+| 0 | 1 |  1 |
+
+* 13
+** Question
+\begin{equation}
+B =
+\begin{bmatrix}
+1 & 0 & 0 & 0 & 0 & 0 & 0 \\
+0 & 1 & 0 & 0 & 0 & 0 & 0 \\
+0 & 0 & 1 & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 1 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & 1 & 0 & 0 \\
+0 & 0 & 0 & 0 & 0 & 1 & 0 \\
+-366 & -385 & -392 & -401 & -422 & -437 & 1215 \\
+\end{bmatrix}
+\end{equation}
+
+verify that the short vector
+
+\begin{equation}
+b1 =
+\begin{bmatrix}
+0 & 0 & 1 & 1 & 1 & 0 & 0
+\end{bmatrix}
+\end{equation}
+
+is obtained.
+
+** Solution
+#+begin_src octave
+  B = [1 , 0 , 0 , 0 , 0 , 0 , 0 ;
+       0 , 1 , 0 , 0 , 0 , 0 , 0 ;
+       0 , 0 , 1 , 0 , 0 , 0 , 0 ;
+       0 , 0 , 0 , 1 , 0 , 0 , 0 ;
+       0 , 0 , 0 , 0 , 1 , 0 , 0 ;
+       0 , 0 , 0 , 0 , 0 , 1 , 0 ;
+       -366 , -385 , -392 , -401 , -422 , -437 , 1215]
+
+  LLL(B,false);
+#+end_src
+
+#+RESULTS:
+| 0 | 0 |  1 |  0 | -2 |  0 |  5 |
+| 0 | 1 |  0 |  2 |  1 |  1 |  2 |
+| 1 | 1 |  1 | -1 |  1 | -1 |  2 |
+| 1 | 0 | -1 |  1 | -1 | -1 |  0 |
+| 1 | 0 |  1 |  0 | -1 |  2 | -1 |
+| 0 | 1 |  1 |  1 | -1 | -1 | -4 |
+| 0 | 1 | -1 | -1 |  0 |  1 |  1 |
+
+* 14
+** Question
+** Solution
+The result from =hackerman.m= is "]".
+
+#+begin_src octave :results both :exports both
+  hackerman
+#+end_src
+
+#+RESULTS:
+: ]

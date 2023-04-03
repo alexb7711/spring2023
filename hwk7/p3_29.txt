@@ -1,0 +1,22 @@
+syms t;
+c = @(t) 0.2^(10-t) + 3*0.4^(10-t);
+h = @(t) 0.2^t + 3*0.4^t;
+
+y1 = [];
+y2 = []
+inner = @(x,y) vpa(x'*y);
+
+% Convolution and propogate data
+for i = 1:9
+    y1 = [y1; c(i)];
+    y2 = [y2; h(i)];
+end
+
+a = inner(y1,y1);
+b = inner(y1,y2);
+c = inner(y2,y2);
+
+A = [a b; b c]
+d = [5;2];
+
+A\d
