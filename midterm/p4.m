@@ -9,7 +9,7 @@ for i = 1:numel(x)
 end
 
 %% Calculate coefficients
-c = inv(A'*A)*A'*y;
+c = inv(A'*A)*A'*y
 
 %% Define function
 f = @(x) c(1) + c(2)*x + c(3)*x^2;
