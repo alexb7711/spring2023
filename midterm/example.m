@@ -31,29 +31,31 @@ x = @(x) c(1)*(exp(-2*(T-x) + 3*exp(-4*(T-x)))) + ...
          c(2)*(5/4 - 1/2*exp(-2*(T-x)) - 3/4*exp(-4*(T-x)));
 
 %% Plot parameters
-N = 1000;
 t = linspace(0,T);
 xd = x(t);
 hd = h(t);
 
 %% Plot input signal
 subplot(3,1,1);
-plot(xd, "LineWidth", 2);
+## plot(t,xd);
+stem(xd);
 xlabel('t');
 ylabel('x(t)');
 
 %% Plot impulse response
 subplot(3,1,2);
-plot(hd, "LineWidth", 2);
+## plot(t,hd);
+stem(hd);
 xlabel('t');
 ylabel('h(t)');
 
 %% Calculate output signal
-y = conv(xd,hd,'full');
+y = conv(xd,hd,"same");
 
 %% Plot output signal
 subplot(3,1,3);
-plot(y,"r-","LineWidth",2)
+## plot(t,y)
+stem(y)
 xlabel('t');
 ylabel('y(t)');
 
